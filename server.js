@@ -1,13 +1,11 @@
-const logEvents = require("./logEvents");
+const http = require("http");
 
-const EventEmitter = require("events");
 
-class MyEmitter extends EventEmitter { };
+const server = http.createServer((req,res)=>{
+    console.log(req.url,req.method);
+})
 
-const myEmitter = new MyEmitter();
-
-MyEmitter.on("log", (msg) => logEvents(msg));
-
-setTimeout(() => {
-    myEmitter.emit("log", "log event emitted");
-}, 2000);
+server.listen(3000,"localhost",()=>{
+    console.log("3000 portu dinleniyor...");
+    console.log("batuhan salkım");
+}) 
