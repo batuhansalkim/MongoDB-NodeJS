@@ -15,27 +15,42 @@ app.use(express.static("public"));
 
 app.use(morgan("dev"));
 
-app.get("/add",(req,res)=>{
+/*MongoDB veritabanına veriler ekliyorum */
+app.get("/add", (req, res) => {
     const blog = new Blog({
-        title:"yeni yazi 2",
-        short:"kisa aciklama",
-        long:"uzun aciklama",
+        title: "yeni yazi 3",
+        short: "kisa aciklama batuhan",
+        long: "uzun aciklama",
     })
 
     blog.save()
+        .then((result) => {
+            res.send(result)
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+})
+
+/*ekledigim verilerin hepsini görüntülüyorum*/
+app.get("/all", (req, res) => {
+    Blog.find()
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+})
+
+app.get("/", (req, res) => {
+    Blog.find().sort({createdAt:-1})
     .then((result)=>{
-        res.send(result)
+        res.render("index",{title:"Anasayfa",blogs:result})
     })
     .catch((err)=>{
         console.log(err);
     })
-})
-
-
-app.get("/", (req, res) => {
-    res.render("index", {
-        title: "anasayfa"
-    });
 })
 
 

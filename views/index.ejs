@@ -7,21 +7,17 @@
 
 <body>
     <%-include("./inc/nav.ejs")%>
+
     <section>
         <h1>Yazılar</h1>
         <ul>
+            <% blogs.forEach(blog=>{ %>
+                <a href="#"><%=blog.title%></a>
+                <p><%=blog.short%></p>
+            <%})%>
             <li>
-                <a href="#">Blog 1</a>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, perferendis?</p>
-            </li>
-            <li>
-                <a href="#">Blog 2</a>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo, nihil.</p>
-            </li>
-            <li>
-                <a href="#">Blog 3</a>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur, nulla.</p>
-            </li>
+                
+           
         </ul>
     </section>
 </body>
