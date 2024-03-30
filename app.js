@@ -7,7 +7,7 @@ const Blog = require("./models/blogs")
 const app = express();
 const dbURL = "mongodb+srv://Batu:batu123@nodeblog.scvno6o.mongodb.net/?retryWrites=true&w=majority&appName=NodeBlog"
 mongoose.connect(dbURL)
-    .then((result) => app.listen(3000))
+    .then((result) => app.listen(4000))
     .catch((err) => console.log(err));
 
 app.set("view engine", "ejs");
@@ -32,6 +32,11 @@ app.get("/add", (req, res) => {
         })
 })
 
+app.get("/blog/:id", (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+})
+
 /*ekledigim verilerin hepsini görüntülüyorum*/
 app.get("/all", (req, res) => {
     Blog.find()
@@ -44,13 +49,13 @@ app.get("/all", (req, res) => {
 })
 
 app.get("/", (req, res) => {
-    Blog.find().sort({createdAt:-1})
-    .then((result)=>{
-        res.render("index",{title:"Anasayfa",blogs:result})
-    })
-    .catch((err)=>{
-        console.log(err);
-    })
+    Blog.find().sort({ createdAt: -1 })
+        .then((result) => {
+            res.render("index", { title: "Anasayfa", blogs: result })
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 })
 
 
